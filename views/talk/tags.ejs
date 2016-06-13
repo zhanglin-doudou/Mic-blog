@@ -1,0 +1,14 @@
+<%- include ../header %>
+<%- include nav %>
+<div class="WB-main-c">
+    <div class="WB-feed S-bg2 WB-feed-detail clearfix">
+		<span>所有的标签：</span>
+		<ul class="tags">
+		<% talks.forEach(function (tag, index) { %>
+			<% if(tag){ %>
+			<li class="tag"><a href="/tags/<%= tag %>"><%= tag %></a></li>
+		<% } }) %>
+		</ul>
+	</div>
+</div>
+<%- include ../footer %>

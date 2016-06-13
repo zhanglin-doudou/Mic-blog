@@ -1,0 +1,143 @@
+<%- include ../header %>
+<div class="container" id="content">
+<div class="account">
+	<ol class="breadcrumb">
+		<li itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="/" itemprop="url"><span itemprop="title">Home</span></a>
+		</li>
+		<li component="breadcrumb/current" itemscope="itemscope"  class="active">
+			<span itemprop="title"><%= s_user.name %></span>	
+		</li>
+	</ol>
+<div class="cover initialised" component="account/cover" style="top: 50px;background-image: url(/images/body_bg.jpg); background-position: 50% 50%;">
+	<div class="avatar-wrapper" data-uid="8168">
+		<div class="avatar avatar-lg avatar-rounded" style="background-color: #e91e63;" title="" data-original-title="<%= s_user.name %>"><%= s_user.name[0] %></div>
+		<i component="user/status" class="status online" title="Online"></i>
+		<% if(user && (user.name !== s_user.name)){ %>
+		<button id="follow" class="btn-morph fab plus" >
+			<% if(s_user.follower.indexOf(user.name) === -1){ %>
+			<i title="加关注" class="icon-plus icon-large"></i>
+			<% }else{ %>
+			<i title="已关注" class="icon-heart icon-large"></i>
+			<% } %>
+		</button>
+		<% } %>
+	</div>
+	<div class="container">
+		<div class="btn-group account-fab">
+			<button type="button" class="fab dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class=" icon-th icon-large"></i>
+			</button>
+			<ul class="dropdown-menu dropdown-menu-right">
+				<li><a href="/user/code-coder" class="inline-block" id="profile">个人中心</a></li>
+				<% if(user && (user.name === s_user.name)){ %>
+				<li><a href="/user/code-coder/settings"><i class=""></i>设置</a></li>
+				<li><a href="/ressetPass">修改密码</a></li>
+				<% } %>
+				<li class="divider"></li>
+				<li><a href="/user/code-coder/following">粉丝</a></li>
+				<li><a href="/user/code-coder/followers">关注</a></li>
+				<li class="divider"></li>
+				<li><a href="/user/code-coder/topics">话题</a></li>
+				<li><a href="/u/<%= s_user.name %>/talk">新鲜事</a></li>
+				<li><a href="/user/code-coder/groups">群组</a></li>
+				<li><a href="/user/code-coder/watched">收藏</a></li>
+			</ul>
+		</div>
+		<% if(user && (user.name == s_user.name)){ %>
+		<div class="controls">
+			<span class="upload"><i class="icon-upload-alt icon-3x fa"></i></span>
+			<span class="resize"><i class="icon-move icon-3x fa"></i></span>
+			<span class="remove"><i class="icon-remove icon-3x fa"></i></span>
+		</div>
+		<% } %>
+	</div>
+</div>
+	<div class="profile row">
+		<h1 class="fullname"><%= s_user.name %></h1>
+		<div class="account-stats">
+			<div class="stat">
+				<a href="/u/<%= s_user.name %>/talk">
+				<div class="human-readable-number"><%= talks.length %></div>
+				<span class="stat-label">新鲜事</span>
+				</a>
+			</div>
+			<div class="stat">
+				<div class="human-readable-number">0</div>
+				<span class="stat-label">话题</span>
+			</div>
+			<div class="stat">
+				<div class="human-readable-number"><%= s_user.pv %></div>
+				<span class="stat-label">访问量</span>
+			</div>
+			<div class="stat">
+				<div class="human-readable-number"><%= s_user.follower.length%></div>
+				<span class="stat-label">粉丝</span>
+			</div>
+			<div class="stat">
+				<div class="human-readable-number" ><%= s_user.following.length%></div>
+				<span class="stat-label">关注</span>
+			</div>
+		</div>
+		<div class="text-center profile-meta">
+			<span>Joined</span>
+			<strong class="timeago" title="<%= s_user.create_time %>"><%= s_user.create_time %></strong>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-xs-12 account-block hidden">
+			<div class="account-picture-block text-center">
+				<span>
+					<span class="account-username"> code-coder</span>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<h1>Posts made by code-coder</h1>
+			<div class="col-xs-12">
+				<div class="alert alert-warning">This user hasn't posted anything yet.</div>
+				<ul component="posts" class="posts-list" data-nextstart="100"></ul>
+				<div component="posts/loading" class="loading-indicator text-center hidden">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="user-action-alert" class="alert alert-success hide"></div>
+</div>
+
+<div class="row"><div widget-area="footer" class="col-xs-12"><div class="text-center"></div></div></div>
+</div>
+<script>
+jQuery(document).ready(function () {
+  $('#follow').click(function (e) {
+    var $this = $(this);
+    var userName = $('.fullname').text();
+    $.ajax({
+      url: '/follow/u/' + userName,
+      method: 'POST',
+    }).done(function (data) {
+      if (data.success) {
+        if (data.action === 'up') {
+          $this.children().removeClass('icon-plus');
+          $this.children().addClass('icon-heart');
+        } else {
+          if (data.action === 'down') {
+            $this.children().addClass('icon-plus');
+          	$this.children().removeClass('icon-heart');
+          }
+        }
+      } else {
+        alert(data.message);
+      }
+    }).fail(function (xhr) {
+      if (xhr.status === 403) {
+        alert('请先登录，登陆后即可点赞。');
+      }
+    });
+  });
+});
+</script>
+<%- include ../footer %>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--***设置图标字体***-->
+  <link rel="stylesheet" href="/stylesheets/font-awesome.min.css">
+  <!--[if IE 7]>
+  <link rel="stylesheet" href="./stylesheets/font-awesome-ie7.min.css">
+  <![endif]-->
+  <link rel="stylesheet" href="/stylesheets/reset.css"> <!-- CSS reset -->
+  <link rel="stylesheet" href="/stylesheets/style2.css"> <!-- Resource style -->
+  <link rel="stylesheet" href="/stylesheets/web.css">
+  <script src="/javascripts/modernizr.js"></script> <!-- Modernizr -->
+  <script src="/javascripts/jquery-2.1.1.js"></script>
+</head>
+<body>
+  <a href="#cd-nav" class="cd-nav-trigger">
+    Menu<span><!-- used to create the menu icon --></span>
+  </a> <!-- .cd-nav-trigger -->
+  <div class="main-nav-container">
+  <div class="main-nav">
+    <div class="left-nav"><a style="color:initial" href="/">HOME</a></div>
+    <div class="other-nav">
+    <a title="首页"  href="/" style="float:left;margin-top:.5em;margin-left:2em;"><i class="icon-home icon-2x"></i></a>
+    <div class="center-nav">
+      <nav>
+      <a title="未读消息"  href="/message" ><i class="icon-envelope icon-large"></i><em class="message-count"></em></a>
+      <a title="群组" href="/login"><i class="icon-group icon-large"></i></a>
+    </nav>
+    </div>
+    <div class="search">
+      <form action="/search" method="GET"><input type="text" name="keyword" placeholder="这里找人" /></form>
+    </div>
+    <div class="right-nav">
+      <nav>
+      <% if (user) { %>
+        <a title="用户"  href="/u/<%= user.name%>"><i class="icon-user icon-large"></i><em><%= user.name%></em></a>
+        <a title="登出" href="/logout"><i class="icon-signout icon-large"></i>注销</a>
+        <% } else { %>
+        <a title="用户"  href="/login"><i class="icon-signin icon-large"></i><em>登录</em></a>
+        <a title="登出" href="/reg"><i class="icon-pencil icon-large"></i><em>注册</em></a>
+        <% } %>
+      </nav>
+    </div>
+    </div>
+  </div>
+  </div> 
+  <main>
+  
+    <section class="cd-section">
+      <div class="cd-content">
+<% if (success) { %>
+  <div><%= success %></div>
+<% } %>
+<% if (error) { %>
+  <div><%= error %> </div>
+<% } %>

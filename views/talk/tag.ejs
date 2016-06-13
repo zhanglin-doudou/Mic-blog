@@ -1,0 +1,26 @@
+<%- include ../header %>
+<%- include nav %>
+<div class="WB-main-c">
+  <div class="WB-feed S-bg2 WB-feed-detail clearfix">
+    <div class="talks-in-tag">
+     <span class="tag-name" >标签：<%= tag %></span>
+      <ul >
+      <% var lastYear = 0 %>
+      <% talks.forEach(function (talk, index) { %>
+        <% if (lastYear != talk.create_time.getFullYear()) { %>
+          <li><span class="talk-year" style="font-size:150%;"><%= talk.create_time.getFullYear() %></span></li>
+        <% lastYear = talk.create_time.getFullYear() } %>
+        <% if (talk.reprint_info.reprint_from) { %>
+        <li><time><%= talk.create_time %></time></li>
+        <li>作者：<a href="/u/<%= talk.author %>"><%= talk.author %></a></li>
+        <li>内容：<a href="/t/<%= talk._id %>">[转]<%= talk.reprint_info.reprint_from.content %></a></li> 
+        <% } else{ %>
+          <li><time><%= talk.create_time %></time></li>
+          <li>作者：<a href="/u/<%= talk.author %>"><%= talk.author %></a></li>
+          <li>内容：<a href="/t/<%= talk._id %>"><%= talk.content %></a></li>
+      <% }}) %>
+      </ul>
+      </div>
+  </div>
+</div>
+<%- include ../footer %>

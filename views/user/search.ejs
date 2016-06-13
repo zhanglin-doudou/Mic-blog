@@ -1,0 +1,13 @@
+<%- include ../header %>
+<ul class="archive">
+<% var lastYear = 0 %>
+<%if (users[0]){%>
+<% users.forEach(function (user, index) { %>
+	<div>你要找的是不是：</div>
+	<div><a href="/u/<%= user.name %>"><%= user.name %></a></div>
+<% }) %>
+<%} else{%>
+	<div>抱歉 你要找的用户不存在!</div>
+<% } %>
+</ul>
+<%- include ../footer %>

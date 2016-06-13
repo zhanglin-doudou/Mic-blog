@@ -1,0 +1,89 @@
+<%- include ../header %>
+<div class="container" >
+<ol class="breadcrumb">
+    <li itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+    <a href="/" itemprop="url">
+      <span itemprop="title">Home</span>
+    </a>
+  </li>
+  <li component="breadcrumb/current" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb" class="active">
+      <span itemprop="title">注册</span>
+  </li>
+</ol>
+<div class="register bgc">
+  <div class="col-md-6">
+    <div class="well well-lg">
+      <form  class="form-horizontal" role="form" action="/reg" method="post">
+        <div class="form-group">
+          <label for="email" class="col-lg-4 control-label">Email </label>
+          <div class="col-lg-8">
+            <div class="input-group">
+              <input class="form-control" required="required" type="email" placeholder="Email Address" name="email" id="email" autocorrect="off" autocapitalize="off">
+              <span class="input-group-addon">
+                <span id="email-notify"><i class="icon-circle-blank"></i></span>
+              </span>
+            </div>
+            <span class="help-block">请输入你的常用邮箱</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="username" class="col-lg-4 control-label">用户名</label>
+          <div class="col-lg-8">
+            <div class="input-group">
+              <input class="form-control" required="required" type="text" placeholder="Enter Username" name="name" id="username" autocorrect="off" autocapitalize="off" autocomplete="off" pattern="^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]{4,20}$">
+              <span class="input-group-addon">
+                <span id="username-notify"><i class="icon-circle-blank"></i></span>
+              </span>
+            </div>
+            <span class="help-block">可输入4-20个字符可以包含英文、数字、中文，不以下划线开头和结尾，不包含其他特殊字符</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="username" class="col-lg-4 control-label">学号</label>
+          <div class="col-lg-8">
+            <div class="input-group">
+              <input class="form-control" required="required" type="tel" placeholder="Enter SchoolNumber" name="sno" id="sno" autocorrect="off" autocapitalize="off" autocomplete="off">
+              <span class="input-group-addon">
+                <span id="sno-notify"><i class="icon-circle-blank"></i></span>
+              </span>
+            </div>
+            <span class="help-block">为了确保校园微博的环境，请输入你的学号</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-lg-4 control-label">密码</label>
+          <div class="col-lg-8">
+            <div class="input-group">
+              <input class="form-control" required="required" type="password" placeholder="Enter Password" name="password" id="password">
+              <span class="input-group-addon">
+                <span id="password-notify"><i class="icon-circle-blank"></i></span>
+              </span>
+            </div>
+            <span class="help-block">请输入6-16位密码，注意区分大小写</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password-confirm" class="col-lg-4 control-label">确认密码</label>
+          <div class="col-lg-8">
+            <div class="input-group">
+              <input class="form-control" required="required" type="password" placeholder="Confirm Password" name="passwordRepeat" id="password-repeat">
+              <span class="input-group-addon">
+                <span id="password-repeat-notify"><i class="icon-circle-blank"></i></span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-4 control-label"></label>
+          <div class="col-lg-offset-4 col-lg-8">
+            <button class="btn btn-primary btn-lg btn-block" id="register">注册</button>
+          </div>
+        </div>
+        <input id="referrer" type="hidden" name="referrer" value="https://community.nodebb.org/register">
+        <input id="token" type="hidden" name="token" value="">
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+<%- include ../footer %>

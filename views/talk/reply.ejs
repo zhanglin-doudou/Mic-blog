@@ -1,0 +1,79 @@
+<div class="send-reply S-bg2" style="padding: 0 0 10px 20px;" >
+<div class="reply-list" talkId="<%= talk._id %>" >
+<% if(talk.replys !== undefined){ %>
+<% var num = -1 %>
+  <% talk.replys.forEach(function (reply, index) { %>
+  <% num = num +1 %>
+    <div class="reply" munber="<%= num %>"  style="border-bottom: 1px solid #d9d9d9;width:100%;padding:10px 0 0 10px;">
+      <div><a href="/u/<%= reply.From %>"><%= reply.replyFrom %> :</a>
+      </div>
+      <div style="margin:5px 0 5px 20px;"><%- reply.content %></div>
+      <div style="display: block;">
+        <span class="info"><%= reply.create_at %></span>
+        <div style="float: right;margin-right:8%;">
+        <ul class="clearfix" >
+        <% if(user.name ==reply.replyFrom){ %>
+          <li  style="float: left;border-right: 1px solid #9d9d9d;"><span class="remove"  ><a href="/remove/t/<%= talk._id %>/<%= num%>" >删除</a></span></li>
+        <% } %>
+          <li style="float: left;border-right: 1px solid #9d9d9d;" >
+            <span class="reply_to_btn"  ><a>回复</a></span>
+          </li>
+            <li style="float: left;">
+            <span class="up_btn" list="<%= num %>" ><i>赞</i><i class="like_count"><%= reply.ups && reply.ups.length ? reply.ups.length : '0' %></i></span></li>
+        </ul>
+        </div>
+      </div>
+    </div>
+  <% }) %>
+<% } %>
+</div>
+<% if(user){ %>
+<div style="margin-top:20px;">
+    
+    <form method="post" action="/t/<%= talk._id %>">
+      <span><%= user.name%>:</span>
+      <textarea class="input" style="width:70%;line-height:100%;height:32px;padding:7px;" title="评论输入框" name="content" ></textarea>
+      <input type="submit" class="btn"  value="回复" />
+    </form>
+    <% }else{ %>
+    <a href="/login">需要评论，请登录</a>
+  <% } %>
+  </div>
+</div>
+<script>
+$(document).ready(function () {
+  $('.remove').click(function delcfm() {
+  if (!confirm("确认要删除？")) {
+    window.event.returnValue = false;
+    }
+  });
+  $('.up_btn').click(function (e) {
+    var $this = $(this);
+    var talkId = $('.reply-list').attr('talkId');
+    var num = $this.attr('list');
+    $.ajax({
+      url: '/like/t/' + talkId + "/" + num ,
+      method: 'POST',
+    }).done(function (data) {
+      if (data.success) {
+        var currentCount = Number($this.find('.like_count').text().trim()) || 0;
+        if (data.action === 'up') {
+          $this.find('.like_count').text(currentCount + 1);
+          $this.find("span").children().addClass('uped');
+        } else {
+          if (data.action === 'down') {
+            $this.find('.like_count').text(currentCount - 1);
+            $this.find("span").children().removeClass('uped');
+          }
+        }
+      } else {
+        alert(data.message);
+      }
+    }).fail(function (xhr) {
+      if (xhr.status === 403) {
+        alert('请先登录，登陆后即可点赞。');
+      }
+    });
+  });
+});
+</script>

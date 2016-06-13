@@ -1,0 +1,18 @@
+<%- include ../header %>
+<ul class="archive">
+<% var lastYear = 0 %>
+<% talks.forEach(function (talk, index) { %>
+  <% if (lastYear != talk.create_time.year) { %>
+    <li><h3><%= talk.create_time.year %></h3></li>
+  <% lastYear = talk.create_time.year } %>
+  <% if (talk.reprint_info.reprint_from) { %>
+  <li><time><%= talk.create_time.minute %></time></li>
+  <li><a href="/u/<%= talk.author %>"><%= talk.author %></a></li>
+  <li class="line_text"><a href="/t/<%= talk._id %>">[转]<%= talk.reprint_info.reprint_from.content %></a></li> 
+  <% } else{ %>
+    <li><time><%= talk.create_time.minute %></time></li>
+    <li><a href="/u/<%= talk.author %>"><%= talk.author %></a></li>
+    <li><a href="/t/<%= talk._id %>"><%= talk.content %></a></li>
+<% }}) %>
+</ul>
+<%- include ../footer %>

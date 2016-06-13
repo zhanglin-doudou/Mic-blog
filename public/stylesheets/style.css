@@ -1,0 +1,35 @@
+/* inspired by http://yihui.name/cn/ */
+
+p{line-height:24px;margin:1em 0;}
+.talk_nav{width: 150px;}
+.talk_nav span{text-decoration:none;padding:.2em 0.6em;color:#000000;display: block;padding: 10px;}
+.talk_nav span:hover{background-color:#FF8040;color:#f9f9f9;-webkit-transition:color .2s linear;}
+.main_l{width: 150px;position: fixed;box-shadow:0px 1px 4px #888;background-color:#93c5e3 ;display: inline-block;letter-spacing: normal;word-spacing: normal;vertical-align: top;font-size: 14px;}
+.main_c{margin-left: 155px;display: inline-block;letter-spacing: normal;word-spacing: normal;vertical-align: top;font-size: 14px}
+
+.main_c .name{color:#000;text-decoration:none;font-size: 1.2em;}
+.main_c a{color:#eb7350;}
+.main_c .name:hover{color:#eb7350;}
+.talk_contain{width:500px;box-shadow:0px 1px 4px #888;padding-top:20px;margin-top: 5px;background-color:#93c5e3;overflow: hidden; }
+.talk_detail{margin-left: 30px;padding:10px 16px 10px 10px;}
+.talk_time{color: #6C6C6C;}
+.talk_tag{float: right;margin-right: 10px;}
+.talk_handle{font-size:1em;height:40px;margin-top: 20px;margin-left: -2px} .talk_handle li{width: 25%;float: left;height: 30px;text-align: center;} .talk_handle span{display: block;height: 22px;margin: 7px 0;border-left:1px solid #ccc;;line-height: 22px;color: #5B5B5B;} .talk_handle span:hover{color:#eb7350; }
+.talk_text{margin:10px 0 0 10px;overflow: hidden;} .talk_text_r{margin: 5px 10px -5px -20px;padding: 4px 20px 10px 40px;overflow: hidden;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;}
+.line_text{width:300px;white-space:nowrap;word-break:keep-all;overflow:hidden;text-overflow:ellipsis;}
+.like_btn{cursor: pointer;}.uped{color:#eb7350;} 
+
+
+
+.edit{margin:3px;padding:2px 5px;border-radius:3px;background-color:#f3f3f3;color:#333;font-size:13px;}
+.edit:hover{text-decoration:none;background-color:#f00;color:#fff;-webkit-transition:color .2s linear;}
+.prepage a{float:left;text-decoration:none;padding:.5em 1em;color:#ff0000;font-weight:bold;}
+.nextpage a{float:right;text-decoration:none;padding:.5em 1em;color:#ff0000;font-weight:bold;}
+.prepage a:hover,.nextpage a:hover{text-decoration:none;background-color:#ff0000;color:#f9f9f9;-webkit-transition:color .2s linear;}
+.archive{list-style:none;line-height:28px;margin-left: 160px;} 
+.archive h3{margin:0.5em 0;}
+.archive time{float:left;font-size:14px;color:#999999;margin-right:1.2em;}
+.tag{background-color:#97CBFF;border-radius:3px;font-size:14px;color:#ffffff;display:inline-block;padding:0 5px;margin-bottom:8px;}
+.tag:hover{text-decoration:none;background-color:#ffffff;color:#000000;-webkit-transition:color .2s linear;}
+.r_head{float:right;margin-top:-2.5em;box-shadow:0px 1px 4px #888;}
+.l_head{float:left;margin-left:-4em;box-shadow:0px 1px 4px #888;}

@@ -1,0 +1,8 @@
+<script src="/javascripts/bootstrap.js"></script>
+<script src="/summernote/summernote.min.js"></script>
+<script src="/summernote/lang/summernote-zh-CN.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#summernote').summernote();
+    });
+</script>
