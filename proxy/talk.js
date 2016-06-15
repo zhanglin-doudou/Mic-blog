@@ -54,7 +54,9 @@ exports.getTen = function(author, page, callback) {
       if(author){
         Talk.find({author:{$in:author}}).skip(start).limit(pageSize).sort({create_time:-1}).exec(function(err,docs){
           if(docs){
-            callback(null, docs, docs.length); 
+            Talk.count({author:{$in:author}}, function(err , count){
+              callback(null, docs, count); 
+            });
           }else{
             callback(null, docs, 0); 
           }
@@ -63,7 +65,9 @@ exports.getTen = function(author, page, callback) {
       else{
     	Talk.find(query).skip(start).limit(pageSize).sort({create_time:-1}).exec(function(err,docs){
           if(docs){
-            callback(null, docs, docs.length); 
+            Talk.count(query, function(err , count){
+              callback(null, docs, count); 
+            });
           }else{
             callback(null, docs, 0); 
           }
@@ -172,7 +176,7 @@ exports.reprint = function(id, user, recomment, reprint_from, callback) {
             "reprint_info.reprint_to": {
               "t_id":talk._id,
               "author":user.name,
-              "time": time
+              "time": date
           }}
         },function (err) {
           if (err) {

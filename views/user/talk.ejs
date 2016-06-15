@@ -1,5 +1,5 @@
 <%- include ../header %>
-<%- include ../talk/nav %>
+<%- include nav %>
     <div class="WB-main-c">
         <div class="WB-feed">
         <% talks.forEach(function (talk, index) { %>
@@ -88,7 +88,7 @@
                                     <span class="arrow"><span class="W-arrow-bor W-arrow-bor-t"><em class="S-bg1-br"></em></span></span>
                                 </li>
                                 <li>
-                                <a class="S-txt2" title="亮心"><span id="like-btn" talkId="<%= talk._id %>" class="line S-line1">
+                                <a class="S-txt2" title="亮心"><span talkId="<%= talk._id %>" class="like-btn line S-line1">
                                 <% if (talk.likes) { %>
                                   <% if(user && talk.likes.indexOf(user.name) != -1){ %>
                                     <i class="icon-heart icon-large uped" ></i>

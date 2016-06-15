@@ -26,7 +26,7 @@ exports.index = function(req, res, next){
           user: c_user,
           s_user:c_user,
           talks:talks,
-          success: req.flash('success').toString(),
+          success: null,
           error: req.flash('error').toString()
          });
         }
@@ -36,7 +36,7 @@ exports.index = function(req, res, next){
           s_user:user,
           user: c_user,
           talks:talks,
-          success: req.flash('success').toString(),
+          success: null,
           error: req.flash('error').toString()
          });
         }
@@ -59,7 +59,7 @@ exports.getUserTalk = function(req, res, next){
           return res.redirect('/');
         } 
         res.render('user/talk', {
-          title: req.params.name,
+          title: req.params.name + "的主页",
           talks: talks,
           page: page,
           isFirstPage: (page - 1) === 0,

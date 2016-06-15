@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>Blog</title>
+<title><%=title%></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--***设置图标字体***-->
   <link rel="stylesheet" href="/stylesheets/font-awesome.min.css">
@@ -12,10 +12,9 @@
   <link rel="stylesheet" href="/stylesheets/reset.css"> <!-- CSS reset -->
   <link rel="stylesheet" href="/stylesheets/style2.css"> <!-- Resource style -->
   <link rel="stylesheet" href="/stylesheets/web.css">
-  <script src="/javascripts/modernizr.js"></script> <!-- Modernizr -->
   <script src="/javascripts/jquery-2.1.1.js"></script>
 </head>
-<body>
+<body >
   <a href="#cd-nav" class="cd-nav-trigger">
     Menu<span><!-- used to create the menu icon --></span>
   </a> <!-- .cd-nav-trigger -->
@@ -48,12 +47,5 @@
   </div>
   </div> 
   <main>
-  
     <section class="cd-section">
       <div class="cd-content">
-<% if (success) { %>
-  <div><%= success %></div>
-<% } %>
-<% if (error) { %>
-  <div><%= error %> </div>
-<% } %>

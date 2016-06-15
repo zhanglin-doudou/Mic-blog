@@ -40,11 +40,11 @@ exports.signup = function(req, res, next){
 
   // 验证信息的正确性
   if ([name, password, rePassword, email].some(function (item) { return item === ''; })) {
-    ep.emit('prop_err', '信息不完整。');
+    ep.emit('prop_err', '信息不完整!');
     return;
   }
   if (password !== rePassword) {
-    return ep.emit('prop_err', '两次密码输入不一致。');
+    return ep.emit('prop_err', '两次密码输入不一致!');
   }
   // END 验证信息的正确性
   User.getUserByS_no(s_no,function(err, user){
@@ -52,7 +52,7 @@ exports.signup = function(req, res, next){
       return next(err);
     }
     if (user){
-      ep.emit('prop_err','此学号已经注册过，请直接登录');
+      ep.emit('prop_err','此学号已经注册过，请直接登录!');
       return;
     }
     User.getUsersByQuery({'$or': [
@@ -63,7 +63,7 @@ exports.signup = function(req, res, next){
         return next(err);
       }
       if (users.length > 0) {
-        ep.emit('prop_err', '用户名或邮箱已被使用。');
+        ep.emit('prop_err', '用户名或邮箱已被使用!');
         return;
       }
         var head = User.makeGravatar(email);
@@ -73,7 +73,7 @@ exports.signup = function(req, res, next){
             req.flash('error', err);
             return res.redirect('/reg');
           }
-          req.flash('success', '注册成功');
+          req.flash('success', '注册成功!');
           res.redirect('/');
         });
     });

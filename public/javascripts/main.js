@@ -5,9 +5,23 @@ jQuery(document).ready(function($){
       }else{
       	$('.message-count').text();
       }
-
     }, 'json');
-    
+    //消息界面的选项卡
+    $('#old-message').hide();
+    $('#new-message-btn').click(function(){
+    	$('#new-message-btn').css({'color':'#fff','background-color':'#00bbbb'});
+    	$('#old-message-btn').css({'color':'#000','background-color':'#f2f2f2'});
+    	$('#new-message').show();
+    	$('#old-message').hide();
+
+    });
+    $('#old-message-btn').click(function(){
+    	$('#old-message-btn').css({'color':'#fff','background-color':'#00bbbb'});
+    	$('#new-message-btn').css({'color':'#000','background-color':'#f2f2f2'});
+    	$('#new-message').hide();
+    	$('#old-message').show();
+    });
+
 	//open navigation clicking the menu icon
 	$('.cd-nav-trigger').on('click', function(event){
 		event.preventDefault();
@@ -165,12 +179,67 @@ jQuery(document).ready(function($){
         }else{
             $('form').focus();
             alert("填写有误！请确认");
-            //return false;
+            return false;
         }
     });
 
 	$('.btn-group').click(function(){
 		$('.dropdown-menu').toggle();
 	});
-
+	$('.dropdown-btn').click(function(){
+		$(this).next().toggle();
+	});
+	$('.like-btn').click(function (e) {
+	    var $this = $(this);
+	    var talkId = $this.attr('talkId');
+	    $.ajax({
+	      url: '/like/t/' + talkId,
+	      method: 'POST',
+	    }).done(function (data) {
+	      if (data.success) {
+	        var currentCount = Number($this.find('.like-count').text().trim()) || 0;
+	        if (data.action === 'up') {
+	          $this.find('.like-count').text(currentCount + 1);
+	          $this.children().first().removeClass('icon-heart-empty');
+	          $this.children().first().addClass('icon-heart uped');
+	        } else {
+	          if (data.action === 'down') {
+	            $this.find('.like-count').text(currentCount - 1);
+	            $this.children().first().removeClass('icon-heart uped');
+	            $this.children().first().addClass('icon-heart-empty');
+	          }
+	        }
+	      } else {
+	        alert('请先登录，登陆后即可点赞。');
+	      }
+	    }).fail(function (xhr) {
+	      if (xhr.status === 403) {
+	        alert('请先登录，登陆后即可点赞。');
+	      }
+	    });
+	});
+	$('#send-btn').click(function (e) {
+	  var content = $('#content').val();
+	  if(!content){
+	  	alert("请输入内容");
+	  	return;
+	  }
+	  var tag = $('#tag').val();
+	  var data={'content':content,'tag1':tag};
+	  $.ajax({
+	      url: '/post',
+	      method: 'POST',
+	      data:data
+	    }).done(function (data) {
+	      if (data.success) {
+	        window.location.reload();
+	      } else {
+	        alert(data);
+	      }
+	    }).fail(function (xhr) {
+	      if (xhr.status === 403) {
+	        alert('请先登录！');
+	      }
+	    });
+	});
 });

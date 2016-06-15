@@ -45,33 +45,18 @@ exports.post = function(req, res, next){
 	});
 
 };
-//显示一条说说
-exports.getOneTalk = function(req, res ,next){
-	Talk.getOneTalk(req.session.user, req.params._id, function (err, talk) {
-    	if (err) {
-    		req.flash('error', err); 
-    		return res.redirect('/t');
-    	}
-    	res.render('talk/article', {
-    		title: talk.author,
-    		talk: talk,
-    		user: req.session.user,
-    		success: req.flash('success').toString(),
-    		error: req.flash('error').toString()
-    	});
-	});
-};
+
 //显示新鲜事广场页面
 exports.showAll = function(req, res ,next){
  //判断是否是第一页，并把请求的页数转换成 number 类型
-  var page = parseInt(req.query.p) || 1;
+  var page = req.query.p ? parseInt(req.query.p) : 1;
     //查询并返回第 page 页的 10 篇文章
   Talk.getTen(null, page, function (err, talks, total) {
     if (err) {
       talks = [];
     } 
     res.render('talk/showAll', {
-      title: '主页',
+      title: '新鲜事广场',
       talks: talks,
       page: page,
       isFirstPage: (page - 1) === 0,
@@ -94,7 +79,7 @@ exports.showMys = function(req, res ,next){
 	      talks = [];
 	    } 
 	    res.render('talk/showAll', {
-	      title: '主页',
+	      title: '我的新鲜事',
 	      talks: talks,
 	      page: page,
 	      isFirstPage: (page - 1) === 0,
@@ -128,7 +113,7 @@ exports.showReprint = function(req, res, next){
         }
 
 		res.render('talk/reprint',{
-			title:'转发',
+			title:'我要转发',
 			talk:talk,
 			user:req.session.user,
 			success: req.flash('success').toString(),
@@ -192,7 +177,7 @@ exports.getTags = function(req, res, next) {
         return res.redirect('/t');
       }
       res.render('talk/tags', {
-        title: '标签',
+        title: '标签库',
         talks: talks,
         user: req.session.user,
         success: req.flash('success').toString(),
@@ -208,7 +193,7 @@ exports.findByTag = function(req, res, next) {
         return res.redirect('/t');
       }
       res.render('talk/tag', {
-        title: 'TAG:' + req.params.tag,
+        title: '标签:' + req.params.tag,
         tag:req.params.tag,
         talks: talks,
         user: req.session.user,
@@ -218,20 +203,20 @@ exports.findByTag = function(req, res, next) {
     });
 };
 
-exports.archive = function(req, res, next){
-	Talk.getArchive('',function (err, talks) {
-   		if (err) {
-   			req.flash('error', err); 
-   			return res.redirect('/t');
-   		}
-   		res.render('talk/archive', {
-	   		title: '存档',
-   			talks: talks,
-      		user: req.session.user,
-      		success: req.flash('success').toString(),
-      		error: req.flash('error').toString()
-    	});
-  	});
+exports.showReply = function(req, res ,next){
+  Talk.getOneTalk(req.session.user, req.params._id, function (err, talk) {
+      if (err) {
+        req.flash('error', err); 
+        return res.redirect('/t');
+      }
+      res.render('talk/reply', {
+        title: "我要评论",
+        talk: talk,
+        user: req.session.user,
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
+      });
+  });
 };
 //评论回复
 exports.reply = function(req, res, next){
@@ -279,25 +264,10 @@ exports.reply = function(req, res, next){
 
   ep.all('reply_saved', 'message_saved', function (reply) {
     res.redirect('/t/' + talk_id);
+    req.flash('success','评论成功！');
   });
 };
-//获取评论
-exports.showReply = function(req, res, next){
-  Talk.findById(req.params._id, function(err, talk){
-    if(err){
-      req.flash("error","获取评论失败");
-      return res.redirect('/t');
-    }
-    req.flash("success","获取评论成功");
-    res.render('talk/replys',{
-          title: "评论",
-          replys: talk.replys,
-          user: req.session.user,
-          success: req.flash('success').toString(),
-          error: req.flash('error').toString()
-    });
-  });
-};
+
 exports.removeReply = function(req, res, next){
   var talkId = req.params._id;
   var replyId = req.params.num;

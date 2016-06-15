@@ -15,10 +15,10 @@
 		<div class="well well-lg">
 			<form  class="form-horizontal" role="form" action="/login" method="post">
 				<div class="form-group">
-					<label for="username" class="col-lg-4 control-label">用户名</label>
+					<label class="col-lg-4 control-label">学号</label>
 					<div class="col-lg-8">
 						<div class="input-group">
-							<input class="form-control" required="required" type="text" placeholder="Enter Username/SchoolNumber/Email" name="sno" id="username" autocorrect="off" autocapitalize="off" autocomplete="off">
+							<input class="form-control" required="required" type="text" placeholder="Enter Username/SchoolNumber/Email" name="sno" id="sno" autocorrect="off" autocapitalize="off" autocomplete="off">
 							<span class="input-group-addon">
 								<span id="username-notify"><i class="icon-circle-blank"></i></span>
 							</span>
@@ -40,7 +40,7 @@
 				<div class="form-group">
 					<label for="submit" class="col-lg-4 control-label"></label>
 					<div class="col-lg-offset-4 col-lg-8">
-						<button class="btn btn-primary btn-lg btn-block" id="register" type="submit">登录</button>
+						<button class="btn btn-primary btn-lg btn-block" id="login" type="submit">登录</button>
 					</div>
 				</div>
 				<input id="referrer" type="hidden" name="referrer" value="https://community.nodebb.org/register">

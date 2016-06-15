@@ -27,14 +27,12 @@ router.get('/u/:name', user.index);
 router.get('/u/:name/talk', user.getUserTalk);
 router.get('/my_t',sign.checkLogin, talk.showMys);
 router.get('/t', talk.showAll);
-router.get('/t/:_id/replys', talk.showReply);
-router.get('/t/:_id', talk.getOneTalk);
-router.post('/t/:_id', talk.reply);  //评论文章
+router.get('/t/:_id',sign.checkLogin, talk.showReply);
+router.post('/t/:_id', sign.checkLogin,talk.reply);  //评论文章
 
 router.get('/remove/t/:_id', sign.checkLogin, talk.remove);
 router.get('/remove/t/:_id/:num', sign.checkLogin, talk.removeReply);
 
-router.get('/archive', talk.archive);
 router.get('/tags', talk.getTags);
 router.get('/tags/:tag', talk.findByTag);
 router.get('/reprint/t/:_id', sign.checkLogin, talk.showReprint);

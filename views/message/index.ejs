@@ -1,4 +1,5 @@
 <%- include ../header %>
+
 <div class="container" >
   <ol class="breadcrumb">
     <li itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -10,12 +11,14 @@
         <span itemprop="title">消息</span>
     </li>
   </ol>
-  <div class="message-container" style="margin-left:10%"> 
-  <div class="panel">
-    <div class='header'>
-      <span class='col_fade'>新信息</span>
-    </div>
-<% if (typeof(hasnot_read_messages) !== 'undefined' && hasnot_read_messages.length > 0) { %>
+<nav class="message-nav">
+<ul>
+    <li id="new-message-btn" style="color:#fff;background-color:#00bbbb;text-shadow: 0px 0px 0px;"><i class="fa icon-bell icon-large"></i><span class="nav-text">新消息</span></li>
+    <li id="old-message-btn"><i class="fa icon-suitcase icon-large"></i><span class="nav-text">过往消息</span></li>
+</nav>
+  <div class="message-container"> 
+  <div id="new-message" class="panel S-bg2">
+    <% if (typeof(hasnot_read_messages) !== 'undefined' && hasnot_read_messages.length > 0) { %>
     <!-- 显示新消息-->
     <% hasnot_read_messages.forEach(function (message, index) {%>
       <% if (message.has_read) { %>
@@ -24,40 +27,38 @@
         <div class='cell message' message_id='<%= message._id %>'>
           <% } %>
           <% if(message.type == 'reply'){ %>
-          <span>
+          <span class="message-type">
             <a href="/u/<%= message.author.name %>" target='_blank'><%= message.author.name %></a>
             回复了你的话题
-            <a href="/t/<%= message.talk._id%>" target='_blank'><%= message.talk.content %></a>
           </span>
+          <%- include article%>
           <% } %>
           <% if(message.type == 'reply2'){ %>
-          <span>
+          <span class="message-type"> 
             <a href="/u/<%= message.author.name %>" target='_blank'><%= message.author.name %></a>
-            在话题
-            <a href="/t/<%= message.talk._id %>" target='_blank'></a>
-            中回复了你的回复
+            在话题中回复了你
           </span>
+          <%- include article%>
           <% } %>
           <% if(message.type == 'follow'){ %>
-        <span>
+        <span class="message-type">
           <a href="/u/<%= message.author.name %>" target='_blank'><%= message.author.name %></a>
           关注了你
         </span>
           <% } %>
           <% if (message.type == 'at'){ %>
-          <span>
+          <span class="message-type">
             <a href="/u/<%= message.author.name %>" target='_blank'><%= message.author.name %></a>
-            在话题
-            <a href="/t/<%= message.talk._id %>" target='_blank'></a>
-            中@了你
+            在话题中@了你
           </span>
+          <%- include article%>
           <% } %>
           <% if (message.type == 'up'){ %>
-          <span>
+          <span class="message-type">
             <a href="/u/<%= message.author.name %>" target='_blank'><%= message.author.name %></a>
-            赞了你的说说
-            <a href="/t/<%= message.talk._id %>" target='_blank'><%= message.talk.content %></a>  
+            赞了你的说说 
           </span>
+          <%- include article%>
           <% } %>
         </div>
       <% }) %>
@@ -67,11 +68,9 @@
       <p>无消息</p>
     </div>
     <% } %>
-</div>
-  <div class='panel'>
-    <div class='header'>
-      <span class='col_fade'>过往信息</span>
-    </div>
+  </div>
+
+  <div id="old-message" style="display:none;" class='panel S-bg2'>
     <% if (typeof(has_read_messages) !== 'undefined' && has_read_messages.length > 0) { %>
     <!-- 显示已读消息-->
     <% has_read_messages.forEach(function (message, index) {%>
@@ -81,28 +80,28 @@
         <div class='cell message' message_id='<%= message._id %>'>
           <% } %>
           <% if(message.type == 'reply'){ %>
-          <span>
+          <span class="message-type">
             <a href="/u/<%= message.author.name %>" target='_blank'><%= message.author.name %></a>
             回复了你的话题
-            <a href="/t/<%= message.talk._id%>" target='_blank'><%= message.talk.content %></a>
           </span>
+          <%- include article%>
           <% } %>
           <% if(message.type == 'reply2'){ %>
-          <span>
+          <span class="message-type">
             <a href="/u/<%= message.author.name %>" target='_blank'><%= message.author.name %></a>
             在话题
             <a href="/t/<%= message.talk._id %>" target='_blank'></a>
             中回复了你的回复
-          </span>
+          </span class="message-type">
           <% } %>
           <% if(message.type == 'follow'){ %>
-        <span>
+        <span class="message-type">
           <a href="/u/<%= message.author.name %>" target='_blank'><%= message.author.name %></a>
           关注了你
         </span>
           <% } %>
           <% if (message.type == 'at'){ %>
-          <span>
+          <span class="message-type">
             <a href="/u/<%= message.author.name %>" target='_blank'><%= message.author.name %></a>
             在话题
             <a href="/t/<%= message.talk._id %>" target='_blank'></a>
@@ -110,11 +109,11 @@
           </span>
           <% } %>
           <% if (message.type == 'up'){ %>
-          <span>
+          <span class="message-type">
             <a href="/u/<%= message.author.name %>" target='_blank'><%= message.author.name %></a>
             赞了你的说说
-            <a href="/t/<%= message.talk._id %>" target='_blank'><%= message.talk.content %></a>  
           </span>
+          <%- include article%>
           <% } %>
         </div>
 
@@ -127,6 +126,5 @@
     <% } %>
   </div>
 </div>
-</div>
-</div>
+
 <%- include ../footer %>
