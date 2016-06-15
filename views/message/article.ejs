@@ -1,0 +1,101 @@
+<div class="S-bg2" >
+    <div class="WB-feed-detail clearfix">
+        <div class="WB-face W-fl">
+            <div class="face">
+            <a target="-blank" class="W-face-radius"  title="<%= message.talk.author %>">
+            <img title="<%= message.talk.author %>" alt="" width="50" height="50" src="http://tva2.sinaimg.cn/crop.0.0.468.468.50/006iTBNyjw1f2tpjlxwknj30d20d4q3o.jpg" class="W-face-radius"></a>
+            </div>
+        </div>
+        <div class="WB-detail">
+            <div class="WB-info">
+                <a target="-blank" class="W-f14 W-fb S-txt1" href="/u/<%= message.talk.author %>"><%= message.talk.author %></a>
+                <a ><i title="微博个人认证 " class="W-icon icon-approve"></i></a>           
+            </div>
+            <div class="WB-from S-txt2">
+                <span  class="S-txt2" ><%= message.talk.create_time%></span></a>            
+            </div>
+            <div class="WB-text W-f14">
+            <% if (message.talk.reprint_info.reprint_from && message.talk.reprint_info.recomment) { %>
+            <%= message.talk.reprint_info.recomment %>
+            <% } else{ %>
+            <%= message.talk.content %>
+            <% } %>
+            </div>
+            <% if (message.talk.reprint_info.reprint_from) { %>
+            <div class="WB-feed-expand">
+                <div class="W-arrow-bor W-arrow-bor-t"><i class="S-bg1-br"></i></div>
+                <div class="WB-expand S-bg1" node-type="feed-list-forwardContent">
+                    <div class="WB-info">
+                    <a target="-blank" title="<%= message.talk.reprint_info.reprint_from.author %>" href="/u/<%= message.talk.reprint_info.reprint_from.author %>" >@<%= message.talk.reprint_info.reprint_from.author %></a>
+                    </div>
+                    <div class="WB-text"><%= message.talk.reprint_info.reprint_from.content %></div>
+                    <div class="WB-media-wrap clearfix">
+                        <div class="media-box">
+                        <ul class="WB-media-a  WB-media-a-m1 clearfix">
+                            <li class="WB-pic li-1 S-bg1 S-line2 bigcursor " >
+                                <img src="http://ww3.sinaimg.cn/orj480/8f27fd0ejw1e47lac1a7cj20c8084dgi.jpg">
+                                <i class="W-loading" style="display:none;"></i>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                    <div class="WB-func clearfix">
+                        <div class="WB-handle W-fr" >
+                            <ul class="clearfix">
+                                <li><span class="line S-line1"><i class="S-txt2 icon-eye-open"><em>12148</em></i></span></li>
+                                <li><span class="line S-line1"><i class="S-txt2 icon-share"><em>542</em></i></span></li>
+                                <li><span class="line S-line1"><i class="S-txt2 icon-comments"><em>365</em></i></span></li>
+                                <li><span class="line S-line1"><i class="S-txt2 icon-heart"><em>365</em></i></span></li>
+                            </ul>
+                        </div>
+                        <div class="WB-from S-txt2">
+                            <a class="S-txt2"><%= message.talk.reprint_info.reprint_from.time %></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+    <div class="WB-feed-handle">
+            <div class="WB-handle">
+                <ul class="WB-row-line clearfix S-line2">
+                    <li>
+                    <a class="S-txt2" href="/t/<%=message.talk._id%>" title="阅读"><span class="line S-line1"><i class="icon-eye-open icon-large"> </i><%= message.talk.pv %></span></a>
+                    </li>
+                    <li>
+                        <a class="S-txt2" href="/reprint/t/<%= message.talk._id%>"  title="转发"><span class="line S-line1"><i class="icon-share icon-large"></i>
+                        <% if (message.talk.reprint_info && message.talk.reprint_info.reprint_to) { %>
+                        <%= message.talk.reprint_info.reprint_to.length %>
+                        <% } else { %>
+                        <%= 0 %>
+                        <% } %>
+                        </span></a>
+                    </li>
+                    <li>
+                        <a class="S-txt2" href="/t/<%=message.talk._id%>" title="评论"><span class="line S-line1">
+                        <i class="icon-comments icon-large"></i>
+                         <% if (message.talk.replys) { %>
+                        <%= message.talk.replys.length %>
+                        <% } else { %>
+                        <%= 0 %>
+                        <% } %>
+                        </span></a>
+                    </li>
+                    <li>
+                    <a class="S-txt2" title="亮心"><span message.talkId="<%= message.talk._id %>" class="like-btn line S-line1">
+                    <% if (message.talk.likes) { %>
+                      <% if(user && message.talk.likes.indexOf(user.name) != -1){ %>
+                        <i class="icon-heart icon-large uped" ></i>
+                        <i class="like-count">
+                        <%= message.talk.likes && message.talk.likes.length ? message.talk.likes.length : '0' %>
+                        </i>
+                      <% } else{ %>
+                        <i class=" icon-heart-empty icon-large"></i>
+                        <i class="like-count"><%= message.talk.likes && message.talk.likes.length ? message.talk.likes.length : '0' %></i>
+                      <% }} %></span></a>
+                    </li>
+                </ul>
+            </div>               
+    </div>
+</div>
